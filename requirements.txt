@@ -1,8 +1,6 @@
 setuptools  
 wheel  
-multiaddr  
-appdirs  
-multiaddr  
+multiaddr
 appdirs  
 idna  
 httpcore  
