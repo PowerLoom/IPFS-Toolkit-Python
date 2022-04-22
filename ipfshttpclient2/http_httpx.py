@@ -116,7 +116,7 @@ class ClientSync(ClientSyncBase[httpx.Client]):
 		)
 	
 	def _make_session(self) -> httpx.Client:
-		connection_pool = httpcore.SyncConnectionPool(
+		connection_pool = httpcore.ConnectionPool(
 			local_address = self._session_laddr,
 			uds = self._session_uds_path,
 			
