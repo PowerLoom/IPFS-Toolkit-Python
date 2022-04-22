@@ -1,6 +1,12 @@
 [build-system]
 requires = [
     "setuptools>=42",
-    "wheel"
+    "wheel",
+    "multiaddr",
+    "appdirs",
+    "idna"  ,
+    "httpcore",
+    "httpx",
+    "requests"
 ]
 build-backend = "setuptools.build_meta"
