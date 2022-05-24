@@ -5,8 +5,8 @@ requires = [
     "multiaddr",
     "appdirs",
     "idna"  ,
-    "httpcore",
-    "httpx",
+    "httpcore==0.14.7",
+    "httpx==0.22.0",
     "requests"
 ]
 build-backend = "setuptools.build_meta"

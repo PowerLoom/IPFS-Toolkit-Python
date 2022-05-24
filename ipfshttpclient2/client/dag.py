@@ -41,7 +41,7 @@ class Section(base.SectionBase):
 
 	@base.returns_single_item(base.ResponseBase)
 	def put(self, data: utils.clean_file_t, format: str = 'cbor',
-	        input_enc: str = 'json', **kwargs: base.CommonArgs):
+	        input_enc: str = 'json', pin=True, **kwargs: base.CommonArgs):
 		"""Decodes the given input file as a DAG object and returns their key
 
 		.. code-block:: python
@@ -68,6 +68,8 @@ class Section(base.SectionBase):
 			Format that the object will be added as. Default: cbor
 		input_enc
 			Format that the input object will be. Default: json
+		pin
+			Pin this object when adding. Default: True
 
 		Returns
 		-------
@@ -75,9 +77,10 @@ class Section(base.SectionBase):
 				Cid with the address of the dag object
 		"""
 		opts = {'format': format, 'input-enc': input_enc}
+		url_path = '/dag/put' + '?pin=' + 'true' if pin else 'false'
 		kwargs.setdefault('opts', {}).update(opts)
 		body, headers = multipart.stream_files(data, chunk_size=self.chunk_size)
-		return self._client.request('/dag/put', decoder='json', data=body,
+		return self._client.request(url_path, decoder='json', data=body,
 		                            headers=headers, **kwargs)
 
 	@base.returns_single_item(base.ResponseBase)
