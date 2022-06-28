@@ -265,7 +265,7 @@ class Client(files.Base, miscellaneous.Base):
 				Hash of the added IPFS object
 		"""
 		body, headers = multipart.stream_bytes(data, chunk_size=self.chunk_size)
-		return self._client.request('/add', decoder='json',
+		return self._client.request('/add?cid-version=1', decoder='json',
 		                            data=body, headers=headers, **kwargs)
 
 	@utils.return_field('Hash')
