@@ -29,17 +29,28 @@ http_client = ipfshttpclient.client.Client()
 # List for keeping track of subscriptions to IPFS topics, so that subscriptions can be ended
 subscriptions = list([])
 
+formatter = logging.Formatter(u"%(levelname)-8s %(name)-4s %(asctime)s,%(msecs)d %(module)s-%(funcName)s: %(message)s")
+
+stdout_handler = logging.StreamHandler(sys.stdout)
+stdout_handler.setLevel(logging.DEBUG)
+
+stderr_handler = logging.StreamHandler(sys.stderr)
+stderr_handler.setLevel(logging.ERROR)
+ipfs_logger = logging.getLogger(__name__)
+ipfs_logger.setLevel(logging.DEBUG)
+ipfs_logger.addHandler(stdout_handler)
+ipfs_logger.addHandler(stderr_handler)
 
 def Start():
     try:
         global started
         http_client = ipfshttpclient.connect('/ip4/127.0.0.1/tcp/5001/http')
         started = True
-        logging.info("Started IPFS_API, connected to daemon")
+        ipfs_logger.info("Started IPFS_API, connected to daemon")
         return True
     except Exception as e:
-        logging.warning("could not connect to daemon")
-        logging.debug(traceback.format_exc())
+        ipfs_logger.warning("could not connect to daemon")
+        ipfs_logger.debug(traceback.format_exc())
         if print_log:
             print("")
             print("----------------------------------------------------")
